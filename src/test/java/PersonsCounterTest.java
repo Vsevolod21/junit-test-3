@@ -1,14 +1,11 @@
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PersonsCounterTest {
     PersonsCounter personsCounter;
     Collection<Person> persons;
+
+    @DisplayName("PersonsCounterTest")
 
     @BeforeAll
     static void start() {
@@ -47,6 +44,7 @@ class PersonsCounterTest {
     @Test
     void createListConscript() {
         final List<String> expected = Arrays.asList("Pavlov");
+
         final List<String> result = personsCounter.createListConscript(persons);
 
         Assertions.assertEquals(expected, result);
@@ -56,6 +54,7 @@ class PersonsCounterTest {
     @Test
     void counterTeens() {
         final int expected = 2;
+        
         final long result = personsCounter.counterTeens(persons);
 
         Assertions.assertEquals(expected, result);
