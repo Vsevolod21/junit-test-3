@@ -1,5 +1,9 @@
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import java.util.*;
+import java.util.stream.Stream;
 
 class PersonsCounterTest {
     PersonsCounter personsCounter;
@@ -41,9 +45,21 @@ class PersonsCounterTest {
         Assertions.assertEquals(expected, result);
     }
 
+    @ParameterizedTest
+    @MethodSource("expectedFactory")
+    void createListConscriptParams(List<String> expected) {
+        final List<String> result = personsCounter.createListConscript(persons);
+        Assertions.assertEquals(expected, result);
+    }
+    static Stream<List<String>> expectedFactory() {
+        return Stream.of(List.of("Pavlov"),
+                List.of("Morozov"));
+    }
+
+
     @Test
     void createListConscript() {
-        final List<String> expected = Arrays.asList("Pavlov");
+        final List<String> expected = List.of("Pavlov");
 
         final List<String> result = personsCounter.createListConscript(persons);
 
@@ -54,7 +70,7 @@ class PersonsCounterTest {
     @Test
     void counterTeens() {
         final int expected = 2;
-        
+
         final long result = personsCounter.counterTeens(persons);
 
         Assertions.assertEquals(expected, result);
